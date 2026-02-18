@@ -5,6 +5,8 @@ type CellProps = {
   id: number;
   cells: string[];
   cell: string;
+  count: number;
+  setCount: Dispatch<SetStateAction<number>>;
   winningMessage: string;
   setCells: Dispatch<SetStateAction<string[]>>;
   setGo: Dispatch<SetStateAction<string>>;
@@ -14,6 +16,8 @@ export default function Cell({
   go,
   id,
   setGo,
+  count,
+  setCount,
   cell,
   cells,
   setCells,
@@ -24,6 +28,7 @@ export default function Cell({
     const cellsCopy = [...cells];
     console.log(go);
     if (cells[id] === "") {
+      setCount(count + 1);
       if (go === "circle") {
         cellsCopy[id] = "O";
         console.log(id, cellsCopy[id]);
@@ -38,7 +43,7 @@ export default function Cell({
 
   return (
     <div className="square" onClick={handleClick}>
-      <div className={cell === "X" ? "cross" : "circle"}>{cell}</div>
+      <div className="cell">{cell}</div>
     </div>
   );
 }

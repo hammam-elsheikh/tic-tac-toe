@@ -13,10 +13,22 @@ const winningCombos = [
   [2, 4, 6],
 ];
 
+const random = Math.round(Math.random()) ? "circle" : "cross";
+
 export default function Home() {
   const [cells, setCells] = useState(["", "", "", "", "", "", "", "", ""]);
-  const [go, setGo] = useState("circle");
   const [winningMessage, setWinningMessage] = useState("");
+  const [count, setCount] = useState(0);
+  const [reset, setReset] = useState(0);
+  const [go, setGo] = useState(random);
+
+  function resetGame() {
+    setCells(["", "", "", "", "", "", "", "", ""]);
+    setGo(random);
+    setWinningMessage("");
+    setCount(0);
+  }
+
   useEffect(() => {
     winningCombos.forEach((combo) => {
       const circleWins = combo.every((cell) => cells[cell] === "O");
@@ -26,9 +38,12 @@ export default function Home() {
         setWinningMessage("circle wins!");
       } else if (crossWins) {
         setWinningMessage("Cross wins!");
+      } else if (!winningMessage && count === 9) {
+        setWinningMessage("Draw!");
       }
     });
-  }, [cells]);
+    console.log("rerendered");
+  }, [cells, count, winningMessage, reset]);
 
   return (
     <main>
@@ -42,6 +57,8 @@ export default function Home() {
             cells={cells}
             cell={cell}
             setCells={setCells}
+            count={count}
+            setCount={setCount}
             winningMessage={winningMessage}
           />
         ))}
@@ -49,6 +66,7 @@ export default function Home() {
         {!winningMessage ? <p>{go} to go</p> : ""}
         <p>{winningMessage} </p>
       </div>
+      <button onClick={resetGame}>reset</button>
     </main>
   );
 }

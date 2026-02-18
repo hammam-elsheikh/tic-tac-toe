@@ -5,6 +5,7 @@ body {
 
 main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100dvh;
@@ -14,9 +15,10 @@ main {
 .gameboard {
   width: 300px;
   height: 300px;
-  border: 2px solid black;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 50px;
+  font-family: cursive;
 }
 .square {
   display: flex;
@@ -24,16 +26,19 @@ main {
   align-items: center;
   width: 100px;
   height: 100px;
-  border: 2px solid black;
   box-sizing: border-box;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 800;
 }
-
-.circle {
-  color: red;
+.square:nth-child(4),
+.square:nth-child(5),
+.square:nth-child(6) {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
-
-.cross {
-  color: blue;
+.square:nth-child(2),
+.square:nth-child(5),
+.square:nth-child(8) {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
